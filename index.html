@@ -245,7 +245,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbynxQiKfBltxU0jxj92bKmdBVbqwlotUQAgPKMA6I1ZVJkD_3gVq20ln89hd5OL0JVteg/exec';
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw2IE9bVLO0caRz3g_ERA9f66Nz76NXRTZ0CaqgdTkQiwwCHKssiNB_aMmVhVbt35H4NA/exec';
 
   window.onload = function() { doSearch(); };
 
@@ -311,21 +311,13 @@
     var btn = document.getElementById('btnNew');
     btn.disabled    = true;
     btn.textContent = '생성 중...';
-
-    fetch(SCRIPT_URL + '?action=create')
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        btn.disabled    = false;
-        btn.textContent = '+ 새 회의록 작성';
-        window.open(data.url, '_blank');
-        showToast('📄 ' + data.title + ' 생성됨');
-        doSearch();
-      })
-      .catch(function() {
-        btn.disabled    = false;
-        btn.textContent = '+ 새 회의록 작성';
-        showToast('오류가 발생했습니다. 다시 시도해 주세요.');
-      });
+    window.open(SCRIPT_URL + '?action=create', '_blank');
+    setTimeout(function() {
+      btn.disabled    = false;
+      btn.textContent = '+ 새 회의록 작성';
+      showToast('📄 새 회의록이 생성됐습니다');
+      doSearch();
+    }, 3000);
   }
 
   function resetForm() {
